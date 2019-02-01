@@ -1,0 +1,13 @@
+load('twoFrameData.mat','descriptors1','descriptors2','im1','im2','orients1','orients2','positions1','positions2','scales1','scales2');
+fprintf('\n\nUse the mouse to draw a polygon, double click to end it\n');
+imshow(im1);
+h = impoly(gca, []);
+api = iptgetapi(h);
+setColor(h,'yellow');
+nextpos = api.getPosition();
+ptsin = inpolygon(positions1(:,1), positions1(:,2), nextpos(:,1), nextpos(:,2));
+oninds = find(ptsin==1);
+n = dist2(descriptors1(oninds,:),descriptors2);
+[row,col] = find(n <= 0.27);
+imshow(im2);
+displaySIFTPatches(positions2(col,:), scales2(col), orients2(col), im2); 
