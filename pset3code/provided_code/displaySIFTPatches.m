@@ -1,6 +1,4 @@
 function displaySIFTPatches(positions, scales, orients, im)
-% position is n x 2, scale and orient are n x 1 vectors.
-% im is the original image in which the patches were detected.
 % This function shows the image with the patches outlined on top of it.
 
 patchcolor = 'c';
