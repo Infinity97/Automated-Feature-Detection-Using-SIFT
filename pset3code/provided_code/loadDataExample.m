@@ -1,16 +1,13 @@
-% This script is to illustrate a couple of the provided functions,
-% and to demonstrate loading a data file.
-addpath('./provided_code/');
+
+addpath('./code/');
 framesdir = './frames/';
 siftdir = './sift/';
 
-% Get a list of all the .mat files in that directory.
-% There is one .mat file per image.
 fnames = dir([siftdir '/*.mat']);
 
 fprintf('reading %d total files...\n', length(fnames));
 
-N = 100;  % to visualize a sparser set of the features
+N = 100; 
     
 % Loop through all the data files found
 for i=1:length(fnames)
@@ -23,14 +20,14 @@ for i=1:length(fnames)
     numfeats = size(descriptors,1);
     
     % read in the associated image
-    imname = [framesdir '/' imname]; % add the full path
+    imname = [framesdir '/' imname]; 
     im = imread(imname);
 
     
     % display the image and its SIFT features drawn as squares
     fprintf('imname = %s contains %d total features, each of dimension %d\n', imname, numfeats, size(descriptors,2));
     imshow(im);
-    displaySIFTPatches(positions, scales, orients, im); % a provided function
+    displaySIFTPatches(positions, scales, orients, im); % another function
     title('showing all features');
     fprintf('hit a key to continue.\n');
     pause;
@@ -48,11 +45,6 @@ for i=1:length(fnames)
     % now show how to select a subset of the features using polygon drawing
     fprintf('\n\nuse the mouse to draw a polygon, double click to end it\n');
     oninds = selectRegion(im, positions);
-    
-    % oninds contains the indices of the SIFT features whose centers fall
-    % within the selected region of interest.
-    % Note that these indices apply to the *rows* of 'descriptors' and
-    % 'positions', as well as the entries of 'scales' and 'orients'
     
     % display only those features
     imshow(im);
